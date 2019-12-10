@@ -1,0 +1,69 @@
+<!-- <app-header></app-header> -->
+<app-main-sidemenu></app-main-sidemenu>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-primary mb-3">
+                <div class="card-header">
+                    Compensation FormStep-5
+                </div>
+                <div class="card-body text-secondary">
+                    <form [formGroup]="stepForm" name="stepForm">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-title-text">
+                                    <h5 class="card-title">Merit Guidelines</h5>
+                                </div>
+                                <br>
+                                <div formArrayName="meritData">
+                                    <div class="row" *ngFor="let item of stepForm['controls']['meritData']['controls'];
+                                                    let i= index" [formGroupName]="i">
+                                        <div class="col-md-3 d-flex align-items-center">
+                                            <span>{{i+1}}. </span><br><br>
+                                            <span class="margin-left-5">
+                                                <p class="card-text">{{ stepForm.value.meritData[i].name }}</p>
+                                            </span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group required">
+                                                <label for="field-required" class="control-label">Min Value</label>
+                                                <input type="number" class="form-control" formControlName="minValue"
+                                                    id="{{ 'minValue' }}" (keyup)="getMinPointAt(i)"
+                                                    [(ngModel)]="minValue[i]">
+                                            </div>
+                                            <div class="error-note" *ngIf="getMinPointAt(i).touched">
+                                                {{minError}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group required">
+                                                <label for="field-required" class="control-label">Max Value</label>
+                                                <input type="number" class="form-control" formControlName="maxValue"
+                                                    id="{{ 'maxValue' }}" (keyup)="getMaxPointAt(i)"
+                                                    [(ngModel)]="maxValue[i]">
+                                            </div>
+                                            <div class="error-note" *ngIf="getMaxPointAt(i).touched">
+                                                {{maxError}}
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-3">
+                                                        <div class="form-group required">
+                                                            <label for="field-required" class="control-label">Rating</label>
+                                                            <input type="text" class="form-control" formControlName="rating"
+                                                                id="{{ 'rating' }}" [(ngModel)]="rating[i]">
+                                                        </div>
+                                                    </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary float-right" id="btn" [disabled]="stepForm.invalid"
+                        (click)="onSaveData()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
